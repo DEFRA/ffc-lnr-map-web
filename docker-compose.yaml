@@ -1,0 +1,11 @@
+services:
+  ffc-lnr-map-web:
+    build:
+      context: .
+      target: production
+    image: ffc-lnr-map-web
+    container_name: ffc-lnr-map-web
+    environment:
+      APPINSIGHTS_CLOUDROLE: ffc-lnr-map-web-local
+      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      OS_MAP_API_KEY: ${OS_MAP_API_KEY}

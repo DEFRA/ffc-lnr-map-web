@@ -1,0 +1,148 @@
+$govuk-assets-path: "~govuk-frontend/govuk/assets/";
+$govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sass-api-reference/#global-styles
+@import "~govuk-frontend/govuk/all";
+
+.nojs-hidden {
+  display: none;
+}
+
+.js-enabled .nojs-hidden {
+  display: block;
+}
+
+.govuk-prose-scope {
+
+  // @extend inheritance
+
+  // Contextual heading and paragraph combinations are inherited
+  // through the use of @extend
+
+  h1 {
+    @extend %govuk-heading-xl;
+  }
+
+  h2 {
+    @extend %govuk-heading-l;
+  }
+
+  h3 {
+    @extend %govuk-heading-m;
+  }
+
+  h4 {
+    @extend %govuk-heading-s;
+  }
+
+  p {
+    @extend %govuk-body-m;
+  }
+
+  strong,
+  b {
+    @include govuk-typography-weight-bold;
+  }
+
+  ul,
+  ol {
+    @extend %govuk-list;
+  }
+
+  ol {
+    @extend %govuk-list--number;
+  }
+
+  ul {
+    @extend %govuk-list--bullet;
+  }
+
+  a {
+    @extend %govuk-link;
+  }
+
+  hr {
+    @extend %govuk-section-break;
+    @extend %govuk-section-break--visible;
+    @extend %govuk-section-break--xl;
+  }
+}
+
+.mapContainer {
+  position: relative;
+}
+
+.parcelCover {
+  height: 500px;
+  width: 100%;
+}
+
+.parcelCoverInfo {
+  width: 100%; 
+  height: 580px;
+}
+
+.parcelCoverMap {
+  border: solid 4px #cccccc; 
+  background-color: white; 
+  padding: 5px; 
+  margin: 5px; 
+  height: 200px;
+  width: 250px;
+}
+
+.map {
+  height: 500px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.mapKey {
+  @extend %govuk-body-s;
+  bottom: 0; 
+  width: 300px;
+}
+
+.mapKey ul { 
+  list-style: none;
+}
+.mapKey li { 
+  float: left; 
+  margin-right: 10px; 
+}
+
+.mapKey span { 
+  border: 2px solid #ccc; 
+  float: left; 
+  width: 15px; 
+  height: 15px; 
+  margin: 2px; 
+}
+
+.mapKey .bpsIneligibleFeature { background-color: rgba(168, 111, 0) }
+.mapKey .arableLand { background-color: rgb(255, 236, 176) }
+.mapKey .permanentGrassLand { background-color: rgba(136, 206, 102) }
+.mapKey .permanentCrops { background-color: rgba(30, 130, 76, 1) }
+
+.grayscale-invert {
+  filter: grayscale(80%) invert(0);
+}
+
+.search-form {
+  position: relative;
+}
+
+.search-button {
+  position: absolute;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-image: url(../images/search-icon.png);
+  background-position: 2px 50%;
+  background-color: #1d70b8;
+  margin-left: -2.5rem;
+
+  &:hover {
+    background-color: #143c7c;
+  }
+}

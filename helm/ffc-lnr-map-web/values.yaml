@@ -1,0 +1,45 @@
+environment: development
+name: ffc-lnr-map-web
+namespace: ffc-lnr
+workstream: ffc-lnr
+image: ffc-lnr-map-web
+
+labels: {}
+
+appInsights:
+  key:
+
+containerConfigMap:
+  name: ffc-lnr-map-web-config-map
+
+containerSecret:
+  name: ffc-lnr-map-web-container-secret
+  type: Opaque
+
+deployment:
+  restartPolicy: Always
+  priorityClassName: default
+  replicas: 1
+  minReadySeconds: 0
+
+container:
+  imagePullPolicy: IfNotPresent
+  requestMemory: 10Mi
+  requestCpu: 10m
+  limitMemory: 40Mi
+  limitCpu: 40m
+  port: 3000
+
+livenessProbe:
+  path: /healthz
+  port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  path: /healthy
+  port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3
