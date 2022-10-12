@@ -1,4 +1,5 @@
-import { Select, Draw, Modify, Snap } from 'ol/interaction'
+import { Select, Draw, Modify, Snap, Pointer } from 'ol/interaction'
+import GeoJSON from 'ol/format/GeoJSON'
 import { landParcelStyles } from './styles/map-styles'
 import { drawStyles } from './styles/map-draw-styles'
 
@@ -40,7 +41,12 @@ const selectInteraction = (map, source, drawSource) => {
   const selectModify = document.getElementById('select-modify')
   const selectDraw = document.getElementById('draw')
   const selectFreehand = document.getElementById('draw-freehand')
-  // const selectTracing = document.getElementById('draw-tracing')
+  const showAll = document.getElementById('show-all')
+
+  const onClick = () => {
+    select.getFeatures().clear()
+    map.getView().fit(source.getSource().getExtent(), { size: map.getSize(), maxZoom: 16 })
+  }
 
   const onChange = () => {
     map.removeInteraction(draw)
@@ -50,12 +56,28 @@ const selectInteraction = (map, source, drawSource) => {
 
     if (selectModify.checked) {
 
+      let dblClickInteraction
+
+      map.getInteractions().getArray().forEach(function(interaction) {
+        if (interaction instanceof Pointer) {
+          dblClickInteraction = interaction
+        }
+      })
+
+      map.removeInteraction(dblClickInteraction)
+
       select = new Select({
         wrapX: false
       })
 
       select.on('select', (e) => {
-        console.log(e)
+        const formatGeoJSON = new GeoJSON()
+        const feature = e.target.getFeatures().getArray()[0]
+        const featureClone = feature.clone()
+        const geojson = formatGeoJSON.writeFeature(featureClone)
+        console.log('geojson', geojson)
+        const extent = feature.getGeometry().getExtent();
+        map.getView().fit(extent)
       })
 
       console.log('select', select)
@@ -73,7 +95,7 @@ const selectInteraction = (map, source, drawSource) => {
   selectModify.addEventListener('change', onChange)
   selectDraw.addEventListener('change', onChange)
   selectFreehand.addEventListener('change', onChange)
-  // selectTracing.addEventListener('change', onChange)
+  showAll.addEventListener('click', onClick)
 
   onChange()
 }
