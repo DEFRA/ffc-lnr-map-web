@@ -1,4 +1,4 @@
-import { Select, Draw, Modify, Snap, Pointer } from 'ol/interaction'
+import { defaults, Select, Draw, Modify, Snap, Pointer, DragPan } from 'ol/interaction'
 import GeoJSON from 'ol/format/GeoJSON'
 import { landParcelStyles } from './styles/map-styles'
 import { drawStyles } from './styles/map-draw-styles'
@@ -71,6 +71,8 @@ const selectInteraction = (map, source, drawSource) => {
       })
 
       select.on('select', (e) => {
+        const interactions = map.getInteractions()
+        map.removeInteraction(interactions)
         const formatGeoJSON = new GeoJSON()
         const feature = e.target.getFeatures().getArray()[0]
         const featureClone = feature.clone()
@@ -78,6 +80,9 @@ const selectInteraction = (map, source, drawSource) => {
         console.log('geojson', geojson)
         const extent = feature.getGeometry().getExtent();
         map.getView().fit(extent)
+        selectModify.checked = false
+        map.removeInteraction(modify)
+        map.removeInteraction(select)
       })
 
       console.log('select', select)

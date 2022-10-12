@@ -1,6 +1,7 @@
 import 'ol/ol.css'
 import Map from 'ol/Map'
 import View from 'ol/View'
+import { defaults } from 'ol/interaction'
 import { initiateMap } from './map-static'
 import { selectInteraction, addInteraction } from './map-interaction'
 import { buildRasterLayers, tilegrid } from './layers/raster-layers'
@@ -24,6 +25,9 @@ export function displayInteractiveMap (apiKey, sbi, parcels, coordinates, select
   })
 
   const map = new Map({ // eslint-disable-line no-unused-vars
+    interactions: defaults({
+      dragPan: false
+    }),
     layers: [...rasterLayer, parcelLayer, drawLayer],
     target,
     view
