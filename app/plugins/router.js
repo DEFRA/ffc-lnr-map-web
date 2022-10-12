@@ -3,8 +3,8 @@ const routes = [].concat(
   require('../routes/healthy'),
   require('../routes/healthz'),
   require('../routes/index'),
-  // require('../routes/map'),
-  require('../routes/interactive-map')
+  require('../routes/map'),
+  require('../routes/confirmation')
 )
 
 module.exports = {

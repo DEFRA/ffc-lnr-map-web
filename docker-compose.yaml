@@ -10,6 +10,12 @@ services:
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
       COOKIE_PASSWORD: who-likes-cookies-i-like-cookies-everybody-likes-cookies
       OS_MAP_API_KEY: ${OS_MAP_API_KEY}
+      POSTGRES_DB: ffc_lnr_map_web
+      POSTGRES_HOST: ${POSTGRES_HOST:-ffc-lnr-map-web-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_SCHEMA_PASSWORD:-ppp}
+      POSTGRES_PORT: 5432
+      POSTGRES_SCHEMA_NAME: ${POSTGRES_SCHEMA_NAME:-public}
+      POSTGRES_USERNAME: ${POSTGRES_SCHEMA_USERNAME:-postgres}
       REDIS_HOSTNAME: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ""

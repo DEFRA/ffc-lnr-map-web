@@ -27,7 +27,7 @@ async function createServer () {
   })
 
   await server.register(require('@hapi/cookie'))
-  await server.register(require('@hapi/crumb'))
+  // await server.register(require('@hapi/crumb'))
   await server.register(require('@hapi/inert'))
   await server.register(require('./plugins/error-pages'))
   await server.register(require('./plugins/logging'))

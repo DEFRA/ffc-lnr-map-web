@@ -33,6 +33,7 @@
     "@hapi/yar": "^10.1.1",
     "@hapi/wreck": "^17.1.0",
     "@turf/turf": "^6.3.0",
+    "@azure/identity": "2.0.5",
     "applicationinsights": "^2.1.6",
     "govuk-frontend": "4.0.1",
     "hapi-pino": "^9.1.2",
@@ -41,7 +42,8 @@
     "ol": "^6.5.0",
     "pg": "8.7.3",
     "pg-hstore": "2.3.4",
-    "sequelize": "6.21.2"
+    "sequelize": "6.21.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@hapi/catbox-memory": "^5.0.1",

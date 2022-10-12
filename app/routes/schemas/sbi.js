@@ -18,6 +18,7 @@ module.exports = Joi.object({
         err.message = 'The SBI must be a number.'
         break
       default:
+        console.log(err)
         err.message = 'The SBI is invalid.'
         break
     }

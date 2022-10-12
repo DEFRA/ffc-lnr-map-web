@@ -64,13 +64,11 @@ const initiateMap = (target, apiKey, coordinates) => {
 const addParcel = (parcels) => {
   map.getLayers().forEach((layer) => {
     layer.className_ === 'ol-layer' && map.removeLayer(layer)
-    console.log(layer.className_)
   })
 
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
-  console.log('XXXXXX', parcelLayer)
   map.addLayer(parcelLayer)
   map.getView().fit(parcelSource.getExtent(), { size: map.getSize(), maxZoom: 16 })
 }

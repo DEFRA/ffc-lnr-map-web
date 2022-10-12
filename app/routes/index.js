@@ -1,4 +1,3 @@
-const sbiSchema = require('./schemas/sbi')
 const Joi = require('joi')
 
 module.exports = [{
@@ -15,8 +14,9 @@ module.exports = [{
   path: '/',
   options: {
     validate: {
-      payload: Joi.object()
-        .concat(sbiSchema),
+      payload: Joi.object({
+        sbi: Joi.string().required()
+      }),
       failAction: async (request, h, error) => {
         console.log('error', error)
         return h.view('index', { error }).code(400).takeover()

@@ -8,9 +8,9 @@
     <comment>Install UUID Extension</comment></sql>
   </changeSet>
   <changeSet author="Steve Dickinson" id="3">
-    <createTable tableName="document_log">
+    <createTable tableName="parcel">
       <column name="id" type="UUID" defaultValueComputed="public.uuid_generate_v4()">
-        <constraints nullable="false" primaryKey="true" primaryKeyName="documentLogId_pkey" />
+        <constraints nullable="false" primaryKey="true" primaryKeyName="parcel_pkey" />
       </column>
       <column name="sbi" type="VARCHAR(12)">
         <constraints nullable="false" />
