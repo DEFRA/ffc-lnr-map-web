@@ -65,3 +65,12 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3
+
+ingress:
+  class: nginx
+  endpoint: ffc-lnr-map-web
+  server: example.com
+
+service:
+  port: 80
+  type: ClusterIP
