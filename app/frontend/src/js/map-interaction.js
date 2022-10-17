@@ -1,18 +1,15 @@
-import { defaults, Select, Draw, Modify, Snap, Pointer, DragPan } from 'ol/interaction'
+import { Select, Draw, Modify, Snap, Pointer } from 'ol/interaction'
 import GeoJSON from 'ol/format/GeoJSON'
 import { landParcelStyles } from './styles/map-styles'
 import { drawStyles } from './styles/map-draw-styles'
 
-let editParcels = []
+const editParcels = []
 let draw
 let snap
 let modify
 let select
 
 const addInteraction = (map, source, drawSource, freehand, tracing, type = 'Polygon') => {
-  // const modify = new Modify({ source: drawSource.getSource() })
-  // map.addInteraction(modify)
-
   draw = new Draw({
     source: drawSource.getSource(),
     type,
@@ -39,9 +36,9 @@ const addInteraction = (map, source, drawSource, freehand, tracing, type = 'Poly
 }
 
 const opacityInteraction = (source, drawSource) => {
-  const opacityParcel = document.getElementById('opacity-parcel');
+  const opacityParcel = document.getElementById('opacity-parcel')
   const opacityAmendedParcel = document.getElementById('opacity-parcel-amended')
-  
+
   const updateOpacityParcel = () => {
     const opacity = parseFloat(opacityParcel.value)
     source.setOpacity(opacity)
@@ -62,7 +59,7 @@ const saveAmendedmentInteraction = (sbi, data) => {
   const onSubmit = () => {
     const request = new XMLHttpRequest()
     request.open('POST', '/map', true)
-    request.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
     request.send(JSON.stringify({ sbi, data }))
 
     request.onreadystatechange = () => {
@@ -82,14 +79,12 @@ const selectInteraction = (map, sbi, source, drawSource) => {
 
   opacityInteraction(source, drawSource)
   saveAmendedmentInteraction(sbi, editParcels)
-  
+
   const selectModify = document.getElementById('select-modify')
   const selectDraw = document.getElementById('draw')
   const selectFreehand = document.getElementById('draw-freehand')
   const showAll = document.getElementById('show-all')
-  
 
-  
   const onClick = () => {
     select.getFeatures().clear()
     map.getView().fit(source.getSource().getExtent(), { size: map.getSize(), maxZoom: 16 })
@@ -104,7 +99,7 @@ const selectInteraction = (map, sbi, source, drawSource) => {
     if (selectModify.checked) {
       let dblClickInteraction
 
-      map.getInteractions().getArray().forEach(function(interaction) {
+      map.getInteractions().getArray().forEach((interaction) => {
         if (interaction instanceof Pointer) {
           dblClickInteraction = interaction
         }
@@ -139,7 +134,7 @@ const selectInteraction = (map, sbi, source, drawSource) => {
     if (selectDraw.checked) {
       addInteraction(map, source, drawSource, selectFreehand.checked, false)
 
-      draw.on("drawend", (e) => {
+      draw.on('drawend', (e) => {
         const formatGeoJSON = new GeoJSON()
         const feature = e.feature
         map.removeInteraction(draw)
@@ -156,8 +151,6 @@ const selectInteraction = (map, sbi, source, drawSource) => {
   selectDraw.addEventListener('change', onChange)
   selectFreehand.addEventListener('change', onChange)
   showAll.addEventListener('click', onClick)
-  
-
   onChange()
 }
 
