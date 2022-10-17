@@ -1,0 +1,32 @@
+# This override file should be used when running this service in isolation
+# to provide dependencies and expose ports for local testing
+
+services:
+  ffc-lnr-map-web:
+    build:
+      target: development
+    image: ffc-lnr-map-web-development
+    container_name: ffc-lnr-map-web-development
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    volumes:
+      - ./app:/home/node/app
+      - ./package.json:/home/node/package.json
+
+  ffc-lnr-map-web-postgres:
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:4.0.14
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  redis_data:
+  postgres_data:

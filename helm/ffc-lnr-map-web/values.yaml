@@ -1,0 +1,67 @@
+environment: development
+name: ffc-lnr-map-web
+namespace: ffc-lnr
+workstream: ffc-lnr
+image: ffc-lnr-map-web
+
+labels: {}
+
+aadPodIdentity: true
+
+appInsights:
+  key:
+
+azureIdentity:
+  clientID:
+  resourceID:
+
+containerConfigMap:
+  name: ffc-lnr-map-web-config-map
+
+containerSecret:
+  name: ffc-lnr-map-web-container-secret
+  type: Opaque
+
+deployment:
+  cpuThreshold: 40
+  memoryThreshold: 80
+  minReadySeconds: 0
+  minReplicas: 1
+  maxReplicas: 2
+  priorityClassName: default
+  restartPolicy: Always
+  replicas: 1
+
+container:
+  cookiePassword: who-likes-cookies-i-like-cookies-everybody-likes-cookies
+  redisHostname: redis-hostname.default
+  redisPartition: ffc-lnr-map-web
+  redisPassword: redis
+  redisPort: 6379
+  imagePullPolicy: IfNotPresent
+  requestCpu: 40m
+  requestMemory: 80Mi
+  limitMemory: 100Mi
+  limitCpu: 80m
+  port: 3000
+
+postgresService:
+  postgresDb: ffc_lnr_map_web
+  postgresExternalName: namespace.postgres.database.azure.com
+  postgresPort: 5432
+  postgresSchema: public
+  postgresUser: postgres
+
+livenessProbe:
+  path: /healthz
+  port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  path: /healthy
+  port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3

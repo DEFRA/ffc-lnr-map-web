@@ -1,0 +1,3 @@
+services:
+  ffc-lnr-map-web:
+    command: npm run start:debug

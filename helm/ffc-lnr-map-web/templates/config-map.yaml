@@ -1,0 +1,20 @@
+{{- include "ffc-helm-library.container-config-map" (list . "ffc-lnr-map-web.config-map") -}}
+{{- define "ffc-lnr-map-web.config-map" -}}
+data:
+  NODE_ENV: {{ quote .Values.environment }}
+  PORT: {{ quote .Values.container.port }}
+  POSTGRES_DB: {{ quote .Values.postgresService.postgresDb }}
+  POSTGRES_HOST: {{ quote .Values.postgresService.postgresExternalName }}
+  POSTGRES_PORT: {{ quote .Values.postgresService.postgresPort }}
+  POSTGRES_SCHEMA_NAME: {{ quote .Values.postgresService.postgresSchema }}
+  APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
+  {{- if .Values.container.redisHostname }}
+  REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
+  {{- end }}
+  {{- if .Values.pr }}
+  REDIS_PARTITION: {{ .Values.container.redisPartition }}-{{ .Values.pr }}
+  {{ else }}
+  REDIS_PARTITION: {{ quote .Values.container.redisPartition }}
+  {{- end }}
+  REDIS_PORT: {{ quote .Values.container.redisPort }}
+{{- end -}}

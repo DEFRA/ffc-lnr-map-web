@@ -1,0 +1,115 @@
+{% extends '_layout.njk' %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block beforeContent %}
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+    <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+  <% }) %>
+  {{ govukBackLink({
+        text: "Back",
+        href: "/",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
+{% endblock %}
+
+
+{% block content %}
+  {% if apiKey !== '' %}
+    <div class="govuk-grid-row">
+      <div>
+        <label class="govuk-label" for="sort">Change view</label>
+        <select class="govuk-select" id="layer-select" name="layer-select">
+          <option value="Road_27700" selected>Road</option>
+          <option value="Outdoor_27700">Outdoor</option>
+          <option value="Light_27700">Light</option>
+          <option value="Leisure_27700">Leisure</option>
+        </select>
+      </div>
+      <div>
+        <div class="mapContainer">
+          <p class="govuk-body">
+            <div id="map" class="map"></div>
+          </p>
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="select-modify" name="select-modify" type="checkbox" value="true">
+              <label class="govuk-label govuk-checkboxes__label" for="select-modify">
+                Select & Modify
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="draw" name="draw" type="checkbox" value="true">
+              <label class="govuk-label govuk-checkboxes__label" for="draw">
+                Draw
+              </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="draw-freehand" name="draw-freehand" type="checkbox" value="true">
+              <label class="govuk-label govuk-checkboxes__label" for="draw-freehand">
+                Freehand
+              </label>
+            </div>
+          </div>
+          <div>
+            <button class="govuk-button govuk-button--secondary" id="show-all" name="show-all" data-module="govuk-button">
+              Show all
+            </button>
+          </div>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <button class="govuk-button govuk-button--secondary" id="submit" name="submitl" data-module="govuk-button">
+            Submit changes
+          </button>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <div>
+            <label class="govuk-label govuk-checkboxes__label" for="draw-freehand">
+              Parcel Layer
+            </label>
+            <input id="opacity-parcel" type="range" min="0" max="1" step="0.01" value="1" />
+          </div>
+          <div>
+            <label class="govuk-label govuk-checkboxes__label" for="draw-freehand">
+              Amended Parcel Layer
+            </label>
+            <input id="opacity-parcel-amended" type="range" min="0" max="1" step="0.01" value="1" />
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+<% }) %>
+<script>
+  const parcels = {{ parcels | dump | safe }}
+  const amendedParcels = {{ amendedParcels | dump | safe }}
+  const center = {{ center | dump | safe }}
+  const sbi = {{ sbi | dump | safe  }}
+  const apiKey = {{ apiKey | dump | safe }}
+  const mapStyle = {{ mapStyle | dump | safe }}
+  if (mapStyle !== '') { 
+    document.getElementById("layer-select").value = mapStyle
+    document.getElementById("draw-select").value = 'Polygon'
+  }
+  if(apiKey !== '') {
+    interactiveMap.displayInteractiveMap(apiKey, sbi, parcels, amendedParcels, center, [], true)
+  }
+</script>
+{% endblock %}
