@@ -1,6 +1,6 @@
 {
   "name": "ffc-lnr-map-web",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Spike looking at editing and updating maps displayed on a customer interface which meets accessibility standards",
   "homepage": "https://github.com/DEFRA/ffc-lnr-map-web",
   "main": "app/index.js",
