@@ -58,7 +58,7 @@ const config = {
   isDev: process.env.NODE_ENV === 'development',
   port: process.env.PORT,
   serviceUri: process.env.SERVICE_URI,
-  publicApi: process.env.PUBLIC_API,
+  publicApi: 'https://environment.data.gov.uk/arcgis/rest/services/RPA/',
   osMapApiKey: process.env.OS_MAP_API_KEY,
   useRedis: process.env.NODE_ENV !== 'test'
 }
