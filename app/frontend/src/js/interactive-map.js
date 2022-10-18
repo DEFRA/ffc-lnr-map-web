@@ -6,16 +6,16 @@ import { initiateMap } from './map-static'
 import { selectInteraction, addInteraction } from './map-interaction'
 import { buildRasterLayers, tilegrid } from './layers/raster-layers'
 import { selectMapStyle } from './map-type-select'
-import { getParcelLayers } from './layers/parcel-layers'
-import { getDrawLayers } from './layers/draw-layers'
+import { buildParcelLayers } from './layers/parcel-layers'
+import { buildDrawLayers } from './layers/draw-layers'
 
 export function displayInteractiveMap (apiKey, sbi, parcels, amendedParcels, coordinates, selectedParcels = [], allowSelect = false, target = 'map') {
   initiateMap('parcelCoverMap', apiKey, coordinates)
 
   const rasterLayer = buildRasterLayers(apiKey)
-  const { parcelLayer, parcelSource } = getParcelLayers(parcels)
+  const { parcelLayer, parcelSource } = buildParcelLayers(parcels)
 
-  const drawLayer = getDrawLayers(amendedParcels)
+  const drawLayer = buildDrawLayers(amendedParcels)
 
   const view = new View({
     center: coordinates,

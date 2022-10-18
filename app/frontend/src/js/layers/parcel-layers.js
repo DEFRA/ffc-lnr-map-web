@@ -3,7 +3,7 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 import { landParcelStyles } from '../styles/map-styles'
 
-const getParcelLayers = (parcels) => {
+const buildParcelLayers = (parcels) => {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({
@@ -15,5 +15,5 @@ const getParcelLayers = (parcels) => {
 }
 
 export {
-  getParcelLayers
+  buildParcelLayers
 }
