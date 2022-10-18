@@ -17,7 +17,5 @@ data:
   REDIS_PARTITION: {{ quote .Values.container.redisPartition }}
   {{- end }}
   REDIS_PORT: {{ quote .Values.container.redisPort }}
-  {{- if .Values.container.osMapApiKey }}
   OS_MAP_API_KEY: {{ quote .Values.container.osMapApiKey }}
-  {{- end }}
 {{- end -}}
