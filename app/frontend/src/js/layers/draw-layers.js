@@ -3,7 +3,7 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 import { landParcelStyles } from '../styles/map-styles'
 
-const getDrawLayers = (amendedParcels) => {
+const buildDrawLayers = (amendedParcels) => {
   let drawSource
 
   if (!Object.keys(amendedParcels).length) {
@@ -21,5 +21,5 @@ const getDrawLayers = (amendedParcels) => {
 }
 
 export {
-  getDrawLayers
+  buildDrawLayers
 }
