@@ -34,6 +34,7 @@ deployment:
 
 container:
   cookiePassword: who-likes-cookies-i-like-cookies-everybody-likes-cookies
+  osMapApiKey:
   redisHostname: redis-hostname.default
   redisPartition: ffc-lnr-map-web
   redisPassword: redis

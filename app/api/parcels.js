@@ -14,9 +14,7 @@ const getLandCovers = async (sbi, sheetId, parcelId) => {
 
 const getParcels = async (sbi) => {
   const url = `${config.publicApi}LandParcels/MapServer/0/query?where=SBI=${sbi}&outFields=*&outSR=27700&f=geojson`
-  console.log(url)
   const parcels = await base.get(url)
-  console.log(parcels)
   const centroid = turf.centroid(parcels)
   const center = centroid.geometry.coordinates
   return {
