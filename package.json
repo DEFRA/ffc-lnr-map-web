@@ -35,7 +35,7 @@
     "@turf/turf": "^6.3.0",
     "@azure/identity": "2.0.5",
     "applicationinsights": "^2.1.6",
-    "govuk-frontend": "4.0.1",
+    "govuk-frontend": "4.7.0",
     "hapi-pino": "^9.1.2",
     "joi": "^17.6.0",
     "nunjucks": "^3.2.3",
