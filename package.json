@@ -33,7 +33,7 @@
     "@hapi/yar": "^10.1.1",
     "@hapi/wreck": "^17.1.0",
     "@turf/turf": "^6.3.0",
-    "@azure/identity": "2.0.5",
+    "@azure/identity": "2.1.0",
     "applicationinsights": "^2.1.6",
     "govuk-frontend": "4.0.1",
     "hapi-pino": "^9.1.2",
